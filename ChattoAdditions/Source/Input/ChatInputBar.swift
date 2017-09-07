@@ -215,6 +215,17 @@ extension ChatInputBar {
     }
 }
 
+extension ChatInputBar { // Send
+    open var sendSelected: Bool {
+        get {
+            return self.sendButton.isSelected
+        }
+        set {
+            return self.sendButton.isSelected = newValue
+        }
+    }
+}
+
 extension ChatInputBar { // Tabar
     public var tabBarInterItemSpacing: CGFloat {
         get {
