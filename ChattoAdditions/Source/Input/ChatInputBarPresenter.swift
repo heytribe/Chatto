@@ -35,19 +35,24 @@ protocol ChatInputBarPresenter: class {
 @objc
 public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
     public let chatInputBar: ChatInputBar
+    
+    let defaultInputItem: TextChatInputItem?
     let chatInputItems: [ChatInputItemProtocol]
     let notificationCenter: NotificationCenter
-
+    
     public init(chatInputBar: ChatInputBar,
+                defaultInputItem: TextChatInputItem?,
                 chatInputItems: [ChatInputItemProtocol],
                 chatInputBarAppearance: ChatInputBarAppearance,
                 notificationCenter: NotificationCenter = NotificationCenter.default) {
+        
         self.chatInputBar = chatInputBar
+        self.defaultInputItem = defaultInputItem
         self.chatInputItems = chatInputItems
         self.chatInputBar.setAppearance(chatInputBarAppearance)
         self.notificationCenter = notificationCenter
         super.init()
-
+        
         self.chatInputBar.presenter = self
         self.chatInputBar.inputItems = self.chatInputItems
         self.notificationCenter.addObserver(self, selector: #selector(BasicChatInputBarPresenter.keyboardDidChangeFrame), name: NSNotification.Name.UIKeyboardDidChangeFrame, object: nil)
@@ -58,7 +63,7 @@ public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
     deinit {
         self.notificationCenter.removeObserver(self)
     }
-
+    
     fileprivate(set) var focusedItem: ChatInputItemProtocol? {
         willSet {
             self.focusedItem?.selected = false
@@ -67,7 +72,7 @@ public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
             self.focusedItem?.selected = true
         }
     }
-
+    
     fileprivate func updateFirstResponderWithInputItem(_ inputItem: ChatInputItemProtocol) {
         let responder = self.chatInputBar.textView!
         let inputView = inputItem.inputView
@@ -79,9 +84,9 @@ public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
             responder.becomeFirstResponder()
         }
     }
-
+    
     fileprivate func firstKeyboardInputItem() -> ChatInputItemProtocol? {
-        var firstKeyboardInputItem: ChatInputItemProtocol? = nil
+        var firstKeyboardInputItem: ChatInputItemProtocol? = self.defaultInputItem
         for inputItem in self.chatInputItems {
             if inputItem.presentationMode == .keyboard {
                 firstKeyboardInputItem = inputItem
@@ -90,29 +95,29 @@ public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
         }
         return firstKeyboardInputItem
     }
-
+    
     private var lastKnownKeyboardHeight: CGFloat?
-
+    
     private func setHeight(forInputView inputView: UIView?) {
         guard let inputView = inputView else { return }
         guard let keyboardHeight = self.lastKnownKeyboardHeight else { return }
-
+        
         var mask = inputView.autoresizingMask
         mask.remove(.flexibleHeight)
         inputView.autoresizingMask = mask
-
+        
         let accessoryViewHeight = self.chatInputBar.textView.inputAccessoryView?.bounds.height ?? 0
         let inputViewHeight = keyboardHeight - accessoryViewHeight
-
+        
         if let heightConstraint = inputView.constraints.filter({ $0.firstAttribute == .height }).first {
             heightConstraint.constant = inputViewHeight
         } else {
             inputView.frame.size.height = inputViewHeight
         }
     }
-
+    
     private var allowListenToChangeFrameEvents = true
-
+    
     @objc
     private func keyboardDidChangeFrame(_ notification: Notification) {
         guard self.allowListenToChangeFrameEvents else { return }
@@ -154,11 +159,16 @@ extension BasicChatInputBarPresenter {
         }
         self.chatInputBar.inputText = ""
     }
-
+    
     func onDidReceiveFocusOnItem(_ item: ChatInputItemProtocol) {
         guard item.presentationMode != .none else { return }
-        guard item !== self.focusedItem else { return }
-
+        guard item !== self.focusedItem else {
+            if let item = self.defaultInputItem {
+                onDidReceiveFocusOnItem(item)
+            }
+            return
+        }
+        
         self.focusedItem = item
         self.chatInputBar.showsSendButton = item.showsSendButton
         self.chatInputBar.showsTextView = item.presentationMode == .keyboard
