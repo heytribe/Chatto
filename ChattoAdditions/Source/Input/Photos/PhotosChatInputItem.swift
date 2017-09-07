@@ -32,7 +32,7 @@ open class PhotosChatInputItem: ChatInputItemProtocol {
     public var photosPermissionHandler: (() -> Void)?
     public weak var presentingController: UIViewController?
 
-    let buttonAppearance: TabInputButtonAppearance
+    open var buttonAppearance: TabInputButtonAppearance
     let inputViewAppearance: PhotosInputViewAppearance
     public init(presentingController: UIViewController?,
                 tabInputButtonAppearance: TabInputButtonAppearance = Class.createDefaultButtonAppearance(),
