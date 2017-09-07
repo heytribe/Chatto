@@ -206,6 +206,10 @@ extension ChatInputBar {
         appearance.sendButtonAppearance.titleColors.forEach { (state, color) in
             self.sendButton.setTitleColor(color, for: state.controlState)
         }
+        self.sendButton.setImage(appearance.sendButtonAppearance.image, for: .normal)
+        appearance.sendButtonAppearance.titleColors.forEach { (state, image) in
+            self.sendButton.setImage(image, for: state.controlState)
+        }
         self.sendButton.titleLabel?.font = appearance.sendButtonAppearance.font
         self.tabBarContainerHeightConstraint.constant = appearance.tabBarAppearance.height
     }
