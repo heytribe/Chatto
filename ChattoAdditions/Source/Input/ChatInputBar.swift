@@ -40,7 +40,7 @@ open class ChatInputBar: ReusableXibView {
     public weak var delegate: ChatInputBarDelegate?
     weak var presenter: ChatInputBarPresenter?
 
-    public var shouldEnableSendButton = { (inputBar: ChatInputBar) -> Bool in
+    public var shouldEnableSendButton = { (inputBar: ChatInputBar, text: String) -> Bool in
         return !inputBar.textView.text.isEmpty
     }
 
@@ -159,7 +159,7 @@ open class ChatInputBar: ReusableXibView {
     }
 
     fileprivate func updateSendButton() {
-        self.sendButton.isEnabled = self.shouldEnableSendButton(self)
+        self.sendButton.isEnabled = self.shouldEnableSendButton(self, self.textView.text)
     }
 
     @IBAction func buttonTapped(_ sender: AnyObject) {
