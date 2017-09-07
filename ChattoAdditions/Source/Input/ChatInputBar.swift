@@ -210,8 +210,8 @@ extension ChatInputBar {
             self.sendButton.setImage(image, for: state.controlState)
         }
         self.sendButton.titleLabel?.font = appearance.sendButtonAppearance.font
+        self.sendButton.isEnabled = appearance.sendButtonAppearance.isEnabled
         self.tabBarContainerHeightConstraint.constant = appearance.tabBarAppearance.height
-        self.sendButton.isEnabled = appearance.isEnabled
     }
 }
 
