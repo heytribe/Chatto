@@ -37,6 +37,7 @@ public struct ChatInputBarAppearance {
             UIControlStateWrapper(state: .normal): nil,
             UIControlStateWrapper(state: .highlighted): nil
         ]
+        public var isEnabled = false
     }
 
     public struct TabBarAppearance {

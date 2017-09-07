@@ -211,6 +211,7 @@ extension ChatInputBar {
         }
         self.sendButton.titleLabel?.font = appearance.sendButtonAppearance.font
         self.tabBarContainerHeightConstraint.constant = appearance.tabBarAppearance.height
+        self.sendButton.isEnabled = appearance.isEnabled
     }
 }
 
