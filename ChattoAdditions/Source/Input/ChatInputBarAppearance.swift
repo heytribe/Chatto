@@ -32,11 +32,10 @@ public struct ChatInputBarAppearance {
             UIControlStateWrapper(state: .normal): UIColor.bma_color(rgb: 0x007AFF),
             UIControlStateWrapper(state: .highlighted): UIColor.bma_color(rgb: 0x007AFF).bma_blendWithColor(UIColor.white.withAlphaComponent(0.4))
         ]
-        public var image:UIImage? = nil
-        public var images: [UIControlStateWrapper: UIImage?] = [
+        public var titleImages: [UIControlStateWrapper: UIImage?] = [
             UIControlStateWrapper(state: .disabled): nil,
             UIControlStateWrapper(state: .normal): nil,
-            UIControlStateWrapper(state: .highlighted): nil)
+            UIControlStateWrapper(state: .highlighted): nil
         ]
     }
 
