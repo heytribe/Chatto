@@ -70,6 +70,10 @@ extension TextChatInputItem : ChatInputItemProtocol {
     public var tabView: UIView {
         return self.internalTabView
     }
+    
+    open func customSelection() -> (() -> Void)? {
+        return nil
+    }
 
     public func handleInput(_ input: AnyObject) {
         if let text = input as? String {

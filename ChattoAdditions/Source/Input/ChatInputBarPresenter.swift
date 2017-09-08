@@ -36,12 +36,12 @@ protocol ChatInputBarPresenter: class {
 public class BasicChatInputBarPresenter: NSObject, ChatInputBarPresenter {
     public let chatInputBar: ChatInputBar
     
-    let defaultInputItem: TextChatInputItem?
+    let defaultInputItem: ChatInputItemProtocol?
     let chatInputItems: [ChatInputItemProtocol]
     let notificationCenter: NotificationCenter
     
     public init(chatInputBar: ChatInputBar,
-                defaultInputItem: TextChatInputItem?,
+                defaultInputItem: ChatInputItemProtocol?,
                 chatInputItems: [ChatInputItemProtocol],
                 chatInputBarAppearance: ChatInputBarAppearance,
                 notificationCenter: NotificationCenter = NotificationCenter.default) {

@@ -88,6 +88,10 @@ open class PhotosChatInputItem: ChatInputItemProtocol {
     open var tabView: UIView {
         return self.internalTabView
     }
+    
+    open func customSelection() -> (() -> Void)? {
+        return nil
+    }
 
     open func handleInput(_ input: AnyObject) {
         if let image = input as? UIImage {
