@@ -215,7 +215,7 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
         }
     }
 
-    private func adjustCollectionViewInsets() {
+    open func adjustCollectionViewInsets() {
         let isInteracting = self.collectionView.panGestureRecognizer.numberOfTouches > 0
         let isBouncingAtTop = isInteracting && self.collectionView.contentOffset.y < -self.collectionView.contentInset.top
         if isBouncingAtTop { return }
