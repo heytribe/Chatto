@@ -179,7 +179,7 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
         if navigatedController.hidesBottomBarWhenPushed && (navigationController?.viewControllers.count ?? 0) > 1 && navigationController?.viewControllers.last == navigatedController {
             self.inputContainerBottomConstraint.constant = 0
         } else {
-            self.inputContainerBottomConstraint.constant = self.bottomLayoutGuide.length
+            self.inputContainerBottomConstraint.constant = 0//self.bottomLayoutGuide.length
         }
     }
 
@@ -188,7 +188,7 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
         let layoutBlock = { [weak self] (bottomMargin: CGFloat) in
             guard let sSelf = self else { return }
             sSelf.isAdjustingInputContainer = true
-            sSelf.inputContainerBottomConstraint.constant = max(bottomMargin, sSelf.bottomLayoutGuide.length)
+            sSelf.inputContainerBottomConstraint.constant = max(bottomMargin, 0)//sSelf.bottomLayoutGuide.length)
             sSelf.view.layoutIfNeeded()
             sSelf.isAdjustingInputContainer = false
         }
