@@ -318,7 +318,7 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
         return (firstItemMoved?.indexPathOld as IndexPath?, firstItemMoved?.indexPathNew as IndexPath?)
     }
  
-    func canScrollToBottomAfterChanges() -> Bool {
+    open func canScrollToBottomAfterChanges() -> Bool {
         return true
     }
 }
