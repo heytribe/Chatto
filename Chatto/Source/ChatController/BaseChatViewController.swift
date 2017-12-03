@@ -306,7 +306,6 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
     }
 
     open func createChatInputView() -> UIView {
-        assert(false, "Override in subclass")
         return UIView()
     }
 
@@ -317,6 +316,10 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
     open func referenceIndexPathsToRestoreScrollPositionOnUpdate(itemsBeforeUpdate: ChatItemCompanionCollection, changes: CollectionChanges) -> (beforeUpdate: IndexPath?, afterUpdate: IndexPath?) {
         let firstItemMoved = changes.movedIndexPaths.first
         return (firstItemMoved?.indexPathOld as IndexPath?, firstItemMoved?.indexPathNew as IndexPath?)
+    }
+ 
+    func canScrollToBottomAfterChanges() -> Bool {
+        return true
     }
 }
 
