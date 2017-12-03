@@ -131,10 +131,6 @@ extension BaseChatViewController: ChatDataSourceDelegateProtocol {
         case preservePosition(rectForReferenceIndexPathBeforeUpdate: CGRect?, referenceIndexPathAfterUpdate: IndexPath?)
     }
 
-    func canScrollToBottomAfterChanges() -> Bool {
-        return true
-    }
-
     func performBatchUpdates(updateModelClosure: @escaping () -> Void,
                              changes: CollectionChanges,
                              updateType: UpdateType,
