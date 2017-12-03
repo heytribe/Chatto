@@ -94,7 +94,7 @@ open class BaseChatViewController: UIViewController, UICollectionViewDataSource,
         self.setupTapGestureRecognizer()
     }
 
-    private func setupTapGestureRecognizer() {
+    open func setupTapGestureRecognizer() {
         self.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BaseChatViewController.userDidTapOnCollectionView)))
     }
 
