@@ -163,9 +163,7 @@ extension BaseChatViewController: ChatDataSourceDelegateProtocol {
         let scrollAction: ScrollAction
         do { // Scroll action
             if updateType != .pagination && self.isScrolledAtBottom() {
-                if canScrollToBottomAfterChanges() {
-                    scrollAction = .scrollToBottom
-                }
+                scrollAction = .scrollToBottom
             } else {
                 let (oldReferenceIndexPath, newReferenceIndexPath) = self.referenceIndexPathsToRestoreScrollPositionOnUpdate(itemsBeforeUpdate: self.chatItemCompanionCollection, changes: changes)
                 let oldRect = self.rectAtIndexPath(oldReferenceIndexPath)
@@ -217,7 +215,9 @@ extension BaseChatViewController: ChatDataSourceDelegateProtocol {
 
         switch scrollAction {
         case .scrollToBottom:
-            self.scrollToBottom(animated: updateType == .normal)
+            if canScrollToBottomAfterChanges() {
+                self.scrollToBottom(animated: updateType == .normal)
+            }
         case .preservePosition(rectForReferenceIndexPathBeforeUpdate: let oldRect, referenceIndexPathAfterUpdate: let indexPath):
             let newRect = self.rectAtIndexPath(indexPath)
             self.scrollToPreservePosition(oldRefRect: oldRect, newRefRect: newRect)
